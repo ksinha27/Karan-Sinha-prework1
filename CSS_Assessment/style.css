@@ -1,0 +1,40 @@
+
+
+
+.navbar{
+  background: #404040;
+  color: #000000;
+  text-align: center;
+}
+
+
+
+.blue-box{
+  background-color: #0000ff;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float:left;
+  width: 50%;
+}
+
+.red-box {
+  background-color: #ff0000;
+  height:400px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  width: 25%;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #228B22;
+  color: #000000;
+  text-align: center;
+}
