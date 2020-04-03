@@ -1,0 +1,57 @@
+body {
+  background-color: #ADD8E6;
+}
+
+h1 {
+  text-align: left;
+  color: #FFFFFF;
+padding-bottom: 200px;
+font-size: 20px;
+font-weight: bold;
+}
+
+h2
+{
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+h3
+{
+  text-align: center;
+  color: #FFFFFF;
+  padding-bottom: 25px;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+p
+{
+  display: inline-block;
+  color: #FFFFFF;
+  border: solid;
+  padding: 5px
+}
+
+
+.text1 {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text2 {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text3 {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quote {
+  text-align: center;
+}
