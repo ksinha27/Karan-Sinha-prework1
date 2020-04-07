@@ -1,15 +1,19 @@
 body {
-    background-image: url(../images/BlackMarble.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
-    color: white;
-    display: flex;
+  background-image:url(../images/field.png);
+  background-size: cover;
+
 }
+
+h1, p, h4 {
+  color: white;
+}
+
+
 .container {
-    margin: auto;
-    text-align: center;
-}
-#currentWord {
-    letter-spacing: 10px;
+  margin: auto;
+  padding: auto;
+  height: 10em;
+  align-items: center;
+  text-align:center;
+  justify-content: center
 }

@@ -1,109 +1,108 @@
 $(document).ready(function() {
 
-      var wordBank = ["braves", "marlins", "mets", "phillies", "nationals", "cubs", "reds", "brewers", "pirates", "cardinals", "diamondbacks", "rockies", "dodgers", "padres", "giants", "orioles", "red sox", "yankees", "rays", "blue jays", "white sox", "indians", "tigers", "royals", "twins", "astros", "angels", "athletics", "mariners", "rangers"]
+  var possibleWords = ["braves", "marlins", "mets", "phillies", "nationals", "cubs", "reds", "brewers", "pirates", "cardinals", "diamondbacks", "rockies", "dodgers", "padres", "giants", "orioles", "red sox", "yankees", "rays", "blue jays", "white sox", "indians", "tigers", "royals", "twins", "astros", "angels", "athletics", "mariners", "rangers"]
 
 
-      const maxGuess = 10
-      var pauseGame = false
+  const maxGuess = 10
+  var pauseGame = false
 
-      var lettersGuessed = []
-      var guessingWord = []
-      var wordToMatch
-      var numGuess
-      var wins = 0
+  var guessedLetters = []
+  var guessingWord = []
+  var wordToMatch
+  var numGuess
+  var wins = 0
 
-      resetGame()
+  resetGame()
 
-      //key pressed
+  // Wait for key press
+  document.onkeypress = function(event) {
+    // Make sure key pressed is an alpha character
+    if (isAlpha(event.key) && !pauseGame) {
+      checkForLetter(event.key.toUpperCase())
+    }
+  }
 
-      document.onkeypress = function(event) {
-        if (isAlpha(event.key) && !pauseGame) {
-          checkForLetter(event.key.toUpperCase())
+  // Game Functions
+  // Check if letter is in word & process
+  function checkForLetter(letter) {
+    var foundLetter = false
+    var correctSound = document.createElement("audio")
+    var incorrectSound = document.createElement("audio")
+    correctSound.setAttribute("src", "assets/sounds/correct.mp3")
+    incorrectSound.setAttribute("src", "assets/sounds/strike.mp3")
+
+    // Search string for letter
+    for (var i = 0, j = wordToMatch.length; i < j; i++) {
+      if (letter === wordToMatch[i]) {
+        guessingWord[i] = letter
+        foundLetter = true
+        correctSound.play()
+        // If guessing word matches random word
+        if (guessingWord.join("") === wordToMatch) {
+          // Increment # of wins
+          wins++
+          pauseGame = true
+          updateDisplay()
+          setTimeout(resetGame, 5000)
         }
       }
+    }
 
-      //Is the guessed letter in the word?
-      function checkForLetter(letter) {
-        var foundLetter = false
-        var correctSound = document.createElement("audio")
-        var incorrectSound = document.createElement("audio")
-        correctSound.setAttribute("src", "assets/sounds/correct.mp3")
-        incorrectSound.setAttribute("src", "assets/sounds/strike.mp3")
+    if (!foundLetter) {
+      incorrectSound.play()
+      // Check if inccorrect guess is already on the list
+      if (!guessedLetters.includes(letter)) {
+        // Add incorrect letter to guessed letter list
+        guessedLetters.push(letter)
+        // Decrement the number of remaining guesses
+        numGuess--
+      }
+      if (numGuess === 0) {
+        // Display word before reseting game
+        guessingWord = wordToMatch.split()
+        pauseGame = true
+        setTimeout(resetGame, 5000)
+      }
+    }
 
-        //is the letter here? (J is used bc of 10 letter limit)
-        for (var i = 0, j = wordToMatch.length; i < j; i++) {
-          if (letter === wordToMatch[i]) {
-            guessingWord[i] = letter
-            foundLetter = true
-            correctSound.play()
+    updateDisplay()
 
-            if (guessingWord.join("") === wordToMatch) {
-              //Win total increases on display
-              wins++
-              pauseGame = true
-              updateDisplay()
-              setTimeout(resetGame, 5000)
-            }
-          }
-        }
+  }
+  // Check in keypressed is between A-Z or a-z
+  function isAlpha(ch) {
+    return /^[A-Z]$/i.test(ch);
+  }
 
-        if (!foundLetter) {
-          incorrectSound.play()
-          //Is the incorrectly guessed letter already on the list?
-          if (!lettersGuessed.includes(letter)) {
-            //letter is added to the list of guessed lettersGuessed
-            lettersGuessed.push(letter)
-            //list of guesses Remaining
-            numGuess--
-          }
-          if (numGuess === 0) {
-            //show the word before the game resets
-            guessingWord = wordToMatch.split()
-            pauseGame = true
-            setTimeout(resetGame, 5000)
-          }
-        }
+  function resetGame() {
+    numGuess = maxGuess
+    pauseGame = false
 
-        updateDisplay()
+    // Get a new word
+    wordToMatch = possibleWords[Math.floor(Math.random() * possibleWords.length)].toUpperCase()
+    console.log(wordToMatch)
 
-        //make sure the letter is between a and Z (inclusive of all upper and lower case)
-        function isAlpha(ch) {
-          return /^[A-Z]$/i.test(ch);
+    // Reset word arrays
+    guessedLetters = []
+    guessingWord = []
 
-          function resetGame() {
-            numGuess = maxGuess
-            pauseGame = false
+    // Reset the guessed word
+    for (var i = 0, j = wordToMatch.length; i < j; i++) {
+      // Put a space instead of an underscore between multi word "words"
+      if (wordToMatch[i] === " ") {
+        guessingWord.push(" ")
+      } else {
+        guessingWord.push("_")
+      }
+    }
 
+    // Update the Display
+    updateDisplay()
+  }
 
-            //Resetting the word
-            wordToMatch = wordBank[Math.floor(Math.random() * wordBank.length)].toUpperCase()
-            console.log(wordToMatch)
-
-            //Reset wordBank
-            lettersGuessed = []
-            guessingWord = []
-
-            //Reset the word thats been Guessed
-
-            for (var i = 0, j = wordToMatch.length; i < j; i++) {
-              if (wordTomatch[i] === " ") {
-                guessingWord.push(" ")
-              } else {
-                guessingWord.push("_")
-              }
-            }
-
-            //Display update
-            updateDisplay()
-
-          }
-
-function updateDisplay (){
-  document.getElementById("winTotal").innerText = wins
-  document.getElementById("currentWord").innerText = guessingWord.join("")
-  document.getElementById("guessesRemaining").innerText = numGuess
-  document.getElementById("lettersGuessed").innerText = guessedLetters.join(" ")
-}
-
-
-        })
+  function updateDisplay() {
+    document.getElementById("totalWins").innerText = wins
+    document.getElementById("currentWord").innerText = guessingWord.join("")
+    document.getElementById("remainingGuesses").innerText = numGuess
+    document.getElementById("guessedLetters").innerText = guessedLetters.join(" ")
+  }
+})
