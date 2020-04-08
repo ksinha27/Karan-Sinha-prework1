@@ -1,0 +1,20 @@
+body {
+  background-color: #ADD8E6;
+}
+
+h2 {
+  font-size: 12px;
+}
+
+
+p{
+  display: inline-block;
+  color: #FFFFFF;
+  border: solid;
+  padding: 5px
+}
+
+.jumbotron{
+  background-color: #ADD8E6;
+  padding-top: 300px;
+}
