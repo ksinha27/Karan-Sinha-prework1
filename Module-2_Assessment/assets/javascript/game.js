@@ -44,12 +44,13 @@ correctSound.setAttribute("src", "assets/sounds/correct.mp3")
         guessWord[i] = letter
         foundLetter = true
         correctSound.play()
-        // If guessing word matches random word
+
 
 
 
         if (guessWord.join("") === wordToMatch) {
-          // Increment # of wins
+
+
           wins++
           pauseGame = true
           updateDisplay()
@@ -61,10 +62,12 @@ correctSound.setAttribute("src", "assets/sounds/correct.mp3")
     if (!foundLetter) {
       incorrectSound.play()
       // Check if inccorrect guess is already on the list
+
       if (!guessedLetters.includes(letter)) {
-        // Add incorrect letter to guessed letter list
+
+
         guessedLetters.push(letter)
-        // Decrement the number of remaining guesses
+
         numGuess--
       }
       if (numGuess === 0) {
@@ -78,7 +81,7 @@ correctSound.setAttribute("src", "assets/sounds/correct.mp3")
     updateDisplay()
 
   }
-  // Check in keypressed is between A-Z or a-z
+  // Check if keypressed is between A-Z or a-z
   function isAlpha(ch) {
     return /^[A-Z]$/i.test(ch);
   }
@@ -98,9 +101,11 @@ correctSound.setAttribute("src", "assets/sounds/correct.mp3")
     // Reset the guessed word
     for (var i = 0, j = wordToMatch.length; i < j; i++) {
       // Put a space instead of an underscore between multi word "words"
+
       if (wordToMatch[i] === " ") {
-        guessWord.push(" ")
+        guessWord.push("   ")
       } else {
+
         guessWord.push("_")
       }
     }
