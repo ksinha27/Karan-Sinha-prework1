@@ -10,7 +10,7 @@ $(document).ready(function() {
 
 
 //Word Variables
-  var guessingWord = []
+  var guessWord = []
   var guessedLetters = []
 
 //letter variables
@@ -38,14 +38,17 @@ var correctSound = document.createElement("audio")
 correctSound.setAttribute("src", "assets/sounds/correct.mp3")
     incorrectSound.setAttribute("src", "assets/sounds/strike.mp3")
 
-    // Search string for letter
+    // Searching the variable look for a letter
     for (var i = 0, j = wordToMatch.length; i < j; i++) {
       if (letter === wordToMatch[i]) {
-        guessingWord[i] = letter
+        guessWord[i] = letter
         foundLetter = true
         correctSound.play()
         // If guessing word matches random word
-        if (guessingWord.join("") === wordToMatch) {
+
+
+
+        if (guessWord.join("") === wordToMatch) {
           // Increment # of wins
           wins++
           pauseGame = true
@@ -66,7 +69,7 @@ correctSound.setAttribute("src", "assets/sounds/correct.mp3")
       }
       if (numGuess === 0) {
         // Display word before reseting game
-        guessingWord = wordToMatch.split()
+        guessWord = wordToMatch.split()
         pauseGame = true
         setTimeout(resetGame, 5000)
       }
@@ -90,15 +93,15 @@ correctSound.setAttribute("src", "assets/sounds/correct.mp3")
 
     // Reset word arrays
     guessedLetters = []
-    guessingWord = []
+    guessWord = []
 
     // Reset the guessed word
     for (var i = 0, j = wordToMatch.length; i < j; i++) {
       // Put a space instead of an underscore between multi word "words"
       if (wordToMatch[i] === " ") {
-        guessingWord.push(" ")
+        guessWord.push(" ")
       } else {
-        guessingWord.push("_")
+        guessWord.push("_")
       }
     }
 
@@ -108,7 +111,7 @@ correctSound.setAttribute("src", "assets/sounds/correct.mp3")
 
   function updateDisplay() {
     document.getElementById("totalWins").innerText = wins
-    document.getElementById("currentWord").innerText = guessingWord.join("")
+    document.getElementById("currentWord").innerText = guessWord.join("")
     document.getElementById("remainingGuesses").innerText = numGuess
     document.getElementById("guessedLetters").innerText = guessedLetters.join(" ")
   }
