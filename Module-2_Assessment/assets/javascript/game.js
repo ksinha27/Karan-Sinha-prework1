@@ -3,32 +3,39 @@ $(document).ready(function() {
   var possibleWords = ["braves", "marlins", "mets", "phillies", "nationals", "cubs", "reds", "brewers", "pirates", "cardinals", "diamondbacks", "rockies", "dodgers", "padres", "giants", "orioles", "red sox", "yankees", "rays", "blue jays", "white sox", "indians", "tigers", "royals", "twins", "astros", "angels", "athletics", "mariners", "rangers"]
 
 
+
+//list of all the variables that will be used
   const maxGuess = 10
   var pauseGame = false
 
-  var guessedLetters = []
+
+//Word Variables
   var guessingWord = []
+  var guessedLetters = []
+
+//letter variables
   var wordToMatch
   var numGuess
+
+//Wins
   var wins = 0
 
   resetGame()
 
-  // Wait for key press
+//game start up
   document.onkeypress = function(event) {
-    // Make sure key pressed is an alpha character
-    if (isAlpha(event.key) && !pauseGame) {
+    //Make sure the letter entered is capitalized!!
+if (isAlpha(event.key) && !pauseGame) {
       checkForLetter(event.key.toUpperCase())
     }
   }
 
-  // Game Functions
-  // Check if letter is in word & process
+  //Source code added for sounds!!
   function checkForLetter(letter) {
     var foundLetter = false
-    var correctSound = document.createElement("audio")
+var correctSound = document.createElement("audio")
     var incorrectSound = document.createElement("audio")
-    correctSound.setAttribute("src", "assets/sounds/correct.mp3")
+correctSound.setAttribute("src", "assets/sounds/correct.mp3")
     incorrectSound.setAttribute("src", "assets/sounds/strike.mp3")
 
     // Search string for letter
